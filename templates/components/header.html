@@ -1,0 +1,17 @@
+    <header class="header">
+        <h1><a href="{% url 'home' %}" style="text-decoration: none !important;">
+            Твой крестовый поход
+        </a></h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <span>Добро пожаловать в орден, {{ user.username }}!</span>
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Уже в ордене? (Вход)</a>
+                <a href="{% url 'register' %}">Стать крестоносцем (Регистрация)</a>
+            {% endif %}
+        </nav>
+    </header>

@@ -1,0 +1,78 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Заголовок теста -->
+    <div class="text-center mb-5">
+        <h1 class="display-4">{{ test.title }}</h1>
+        {% if test.description %}
+        <p class="lead text-muted">{{ test.description }}</p>
+        {% endif %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="mx-auto" style="max-width: 800px;">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light text-center py-3">
+                <h5 class="mb-0 fw-bold">Вопрос {{ forloop.counter }}</h5>
+            </div>
+            
+            <div class="card-body">
+                <div class="mb-4 text-center">
+                    {{ field.label|safe }}
+                </div>
+
+                <div class="list-group-flush mx-auto" style="max-width: 600px;">
+                    {% for choice in field %}
+                    <label class="list-group-item d-flex align-items-center py-3">
+                        <div class="form-check mb-0">
+                            {{ choice.tag }}
+                        </div>
+                        <span class="ms-3 fs-5">{{ choice.choice_label }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg px-5 py-3 fs-5">
+                Завершить тест
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Дополнительные стили для изображений */
+    .card img {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        margin: 20px auto;
+        display: block;
+        max-height: 400px;
+        width: auto;
+    }
+    
+    .card img:hover {
+        transform: scale(1.02);
+    }
+    
+    /* Стили для радиокнопок */
+    .form-check-input {
+        width: 1.2em;
+        height: 1.2em;
+        margin-top: 0.2em;
+    }
+    
+    /* Анимация при выборе ответа */
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock content %}

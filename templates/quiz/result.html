@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Результаты теста: {{ test.title }}</h1>
+    <div class="alert alert-info">
+        Ваш результат: <strong>{{ score }} из {{ total }}</strong>- ({{ percent }}%)
+    </div>
+
+    {% for answer in user_answers %}
+        <div class="card mb-3 {% if answer.is_correct %}border-success{% else %}border-danger{% endif %}">
+            <div class="card-header {% if answer.is_correct %}bg-success text-white{% else %}bg-danger text-white{% endif %}">
+                Вопрос {{ forloop.counter }}: {% if answer.is_correct %}✓ Верно{% else %}✗ Неверно{% endif %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ answer.question.text }}</h5>
+                <p class="card-text">
+                    Ваш ответ: <strong>{{ answer.answer.text }}</strong>
+                    {% if answer.answer.explanation %}
+                        <br><em>{{ answer.answer.explanation }}</em>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Вернуться к тестам</a>
+</div>
+{% endblock content %}

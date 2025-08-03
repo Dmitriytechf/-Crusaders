@@ -1,0 +1,40 @@
+.header {
+    background: #333;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin-left: 150px;
+}
+
+.header nav{
+    margin-right: 150px;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+.header a:hover {
+    text-decoration: underline;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1; /* Заставляет основной контент занимать всё доступное пространство. */
+}
+.footer {
+    margin-top: auto; /* Прижимает футер вниз */
+}
