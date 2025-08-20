@@ -4,7 +4,7 @@
 <div class="container py-5">
     <h1>Результаты теста: {{ test.title }}</h1>
     <div class="alert alert-info">
-        Ваш результат: <strong>{{ score }} из {{ total }}</strong>- ({{ percent }}%)
+        Ваш результат: <strong>{{ score }} из {{ total }}</strong> - ({{ percent }}%)
     </div>
 
     {% for answer in user_answers %}
@@ -15,7 +15,14 @@
             <div class="card-body">
                 <h5 class="card-title">{{ answer.question.text }}</h5>
                 <p class="card-text">
-                    Ваш ответ: <strong>{{ answer.answer.text }}</strong>
+                    Ваш ответ: <strong>{{ answer.answer.text }}</strong>;
+                    Правильный ответ: <strong>
+                        {% for correct_answer in answer.question.answers.all %}
+                            {% if correct_answer.is_correct %}
+                                {{ correct_answer.text }}
+                            {% endif %}
+                        {% endfor %}
+                    </strong>
                     {% if answer.answer.explanation %}
                         <br><em>{{ answer.answer.explanation }}</em>
                     {% endif %}
